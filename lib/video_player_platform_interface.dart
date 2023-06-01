@@ -213,6 +213,7 @@ class VideoEvent {
     this.rotationCorrection,
     this.buffered,
     this.isPlaying,
+    this.isLoopPlaybackEnd = false,
   });
 
   /// The type of the event.
@@ -243,6 +244,8 @@ class VideoEvent {
   /// Only used if [eventType] is [VideoEventType.isPlayingStateUpdate].
   final bool? isPlaying;
 
+  final bool isLoopPlaybackEnd;
+  
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
@@ -253,7 +256,7 @@ class VideoEvent {
             size == other.size &&
             rotationCorrection == other.rotationCorrection &&
             listEquals(buffered, other.buffered) &&
-            isPlaying == other.isPlaying;
+            isPlaying == other.isPlaying && isLoopPlaybackEnd == other.isLoopPlaybackEnd;
   }
 
   @override
@@ -264,6 +267,7 @@ class VideoEvent {
         rotationCorrection,
         buffered,
         isPlaying,
+        isLoopPlaybackEnd,
       );
 }
 
@@ -293,6 +297,8 @@ enum VideoEventType {
   /// phone calls, or other app media such as music players.
   isPlayingStateUpdate,
 
+  loopPlaybackEnd,
+  
   /// An unknown event has been received.
   unknown,
 }
